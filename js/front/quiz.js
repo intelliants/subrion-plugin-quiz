@@ -14,6 +14,8 @@ $(function() {
 
         var $wrapper = $(this).closest('ul');
 
+        $wrapper.css('pointerEvents', 'none');
+
         if (!$wrapper.hasClass('processed')) {
             var $this = $(this),
                 $stats = $this.parent().find('.js-answer-stats'),
@@ -25,7 +27,7 @@ $(function() {
 
             $.get(url, {action: 'update-clicks-num', id: answerId}, function(response) {
                 if (response.length) {
-                    $wrapper.addClass('processed');
+                    $wrapper.addClass('processed').css('pointerEvents', 'auto');
 
                     if ($stats.is(':hidden')) {
                         $('.js-load-questions .js-answer-stats').fadeIn(300);
@@ -41,7 +43,7 @@ $(function() {
 
                         intelli.cookie.write('correct_answers_num', parseInt(intelli.cookie.read('correct_answers_num')) + 1);
                     } else {
-                        $('.js-load-questions .correct-answer').addClass('text-success')
+                        $('.js-load-questions .correct-answer .js-answer-title').addClass('text-success')
                             .find('.fa:not(.fa-bar-chart)').removeAttr('class').attr('class', 'fa fa-check');
                     }
 
