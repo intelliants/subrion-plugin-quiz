@@ -78,11 +78,13 @@ SQL;
 
                 $iaQuestions = $iaCore->factoryModule('questions', 'quiz');
 
-                if ($entry['question'] = $iaQuestions->getById($id)) {
+                if ($question = $iaQuestions->getById($id)) {
+                    $entry = $iaQuizzes->getById($question['quiz_id']);
+                    $entry['question'] = $question;
+
                     $next_question_id = $iaDb->one(iaDb::ID_COLUMN_SELECTION, "`id` > {$entry['question']['id']} AND `quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
                     $next_question_id || $next_question_id = 0;
 
-                    $entry['id'] = $entry['question']['quiz_id'];
                     $entry['question']['next_id'] = $next_question_id ? $next_question_id : 0;
 
                     $iaSmarty->assign('entry', $entry);
