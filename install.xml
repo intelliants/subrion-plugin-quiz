@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module type="plugin" name="quiz">
+    <title>Quiz</title>
+    <summary>Allows to create quiz section on the website</summary>
+    <author>Artem Malichev</author>
+    <contributor>Intelliants LLC</contributor>
+    <version>1.0.0</version>
+    <date>2017-08-03</date>
+    <compatibility>4.1</compatibility>
+
+    <items>
+        <item payable="0">quizzes</item>
+        <item payable="0">quizzes_questions</item>
+        <item payable="0">quizzes_answers</item>
+    </items>
+
+    <actions>
+        <action name="answers" url="quiz/answers/" icon="pencil" pages="quizzes:add,quizzes:edit,quizzes:read,questions:add,questions:edit,questions:read,answers:add,answers:edit"><![CDATA[]]></action>
+        <action name="questions" url="quiz/questions/" icon="help" pages="quizzes:add,quizzes:edit,quizzes:read,questions:add,questions:edit,answers:read,answers:add,answers:edit"><![CDATA[]]></action>
+        <action name="quizzes" url="quiz/" icon="list" pages="quizzes:add,quizzes:edit,questions:add,questions:edit,questions:read,answers:read,answers:add,answers:edit"><![CDATA[]]></action>
+        <action name="add_answers" url="quiz/answers/add/" icon="plus" pages="answers:read,answers:edit"><![CDATA[]]></action>
+        <action name="add_questions" url="quiz/questions/add/" icon="plus" pages="questions:read,questions:edit"><![CDATA[]]></action>
+        <action name="add_quizzes" url="quiz/add/" icon="plus" pages="quizzes:read,quizzes:edit"><![CDATA[]]></action>
+    </actions>
+
+    <adminpages>
+        <page name="quizzes" url="quiz/" menus="menu">Quizzes</page>
+        <page name="questions" url="quiz/questions/" filename="questions">Questions</page>
+        <page name="answers" url="quiz/answers/" filename="answers">Answers</page>
+    </adminpages>
+
+    <pages>
+        <page menus="main,bottom" name="quizzes" url="quizzes/">Quizzes</page>
+    </pages>
+
+    <fields_groups>
+        <group item="quizzes" name="general" title="General"><![CDATA[]]></group>
+        <group item="quizzes_questions" name="general" title="General"><![CDATA[]]></group>
+        <group item="quizzes_answers" name="general" title="General"><![CDATA[]]></group>
+    </fields_groups>
+
+    <fields>
+        <field name="title" item="quizzes" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
+        <field name="summary" item="quizzes" type="textarea" group="general" editor="0" required="0" multilingual="1" adminonly="1">Summary</field>
+        <field name="body" item="quizzes" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
+        <field name="pictures" item="quizzes" type="pictures" group="general" length="5" thumb_width="400" thumb_height="300" width="1200" height="900" prefix="quizzes_" editable="0">Image</field>
+        <field name="quiz_completion_text" item="quizzes" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Quiz Completion text</field>
+
+        <field name="title" item="quizzes_questions" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
+        <field name="body" item="quizzes_questions" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
+        <field name="pictures" item="quizzes_questions" type="pictures" group="general" length="5" thumb_width="400" thumb_height="300" width="1200" height="900" prefix="quizzes_" editable="0">Image</field>
+
+        <field name="title" item="quizzes_answers" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
+        <field name="body" item="quizzes_answers" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
+    </fields>
+
+    <phrases>
+        <phrase category="admin" key="dashboard_quizzes_add">Add Quiz</phrase>
+        <phrase category="admin" key="add_quizzes">Add Quiz</phrase>
+        <phrase category="admin" key="add_questions">Add Question</phrase>
+        <phrase category="admin" key="add_answers">Add Answer</phrase>
+        <phrase category="admin" key="invalid_quiz">Invalid quiz.</phrase>
+        <phrase category="admin" key="invalid_question">Invalid question.</phrase>
+        <phrase category="admin" key="correct_answer">Correct Answer</phrase>
+        <phrase category="admin" key="questions_num">Number of questions</phrase>
+        <phrase category="admin" key="answers_num">Number of answers</phrase>
+
+        <phrase category="common" key="quizzes">Quizzes</phrase>
+        <phrase category="common" key="quiz">Quiz</phrase>
+        <phrase category="common" key="questions">Questions</phrase>
+        <phrase category="common" key="question">Question</phrase>
+        <phrase category="common" key="answers">Answers</phrase>
+        <phrase category="common" key="answer">Answer</phrase>
+
+        <phrase category="frontend" key="no_quizzes">Administrator has not posted any quizzes.</phrase>
+        <phrase category="frontend" key="start_quiz">Start Quiz</phrase>
+        <phrase category="frontend" key="next_question">Next</phrase>
+        <phrase category="frontend" key="submit_and_finish">Submit and finish</phrase>
+        <phrase category="frontend" key="your_result">Your result:</phrase>
+        <phrase category="frontend" key="quiz_repeat">Repeat Quiz</phrase>
+    </phrases>
+
+    <configgroup name="quiz">Quiz</configgroup>
+
+    <config group="quiz" name="quizzes_plugin" type="divider" value="General">General</config>
+    <config group="quiz" name="quizzes_number" type="text" description="Number of displayed quizzes per page">10</config>
+    <config group="quiz" name="quizzes_max" type="text" description="Number of chars in short description">200</config>
+    <config group="quiz" name="quizzes_order" type="select" values="Alphabetic,Date,Order" description="Order by">Date</config>
+    <config group="quiz" name="quizzes_direction" type="select" values="Ascending,Descending" description="Direction">Descending</config>
+
+    <hooks>
+        <hook name="adminDashboardStatistics" page_type="admin"><![CDATA[$items['quizzes'] = 'plugin';]]></hook>
+    </hooks>
+
+    <install>
+        <sql>
+            <![CDATA[
+CREATE TABLE `{prefix}quizzes` (
+    `id` mediumint(7) unsigned NOT NULL auto_increment,
+    `member_id` int(11) unsigned NOT NULL,
+    `slug` varchar(50) NOT NULL,
+    `date_added` datetime,
+    `date_modified` datetime,
+    `status` enum('inactive', 'active') NOT NULL default 'active',
+    `order` smallint(5) unsigned NOT NULL,
+    `featured` tinyint(1) unsigned NOT NULL default 0,
+    `featured_start` datetime NULL,
+    `featured_end` datetime NULL,
+    PRIMARY KEY  (`id`)
+) {mysql_version};
+            ]]>
+        </sql>
+        <sql>
+            <![CDATA[
+CREATE TABLE `{prefix}quizzes_questions` (
+    `id` mediumint(7) unsigned NOT NULL auto_increment,
+    `member_id` int(11) unsigned NOT NULL,
+    `quiz_id` int(11) unsigned NOT NULL,
+    `date_added` datetime,
+    `date_modified` datetime,
+    `status` enum('inactive', 'active') NOT NULL default 'active',
+    PRIMARY KEY  (`id`)
+) {mysql_version};
+            ]]>
+        </sql>
+        <sql>
+            <![CDATA[
+CREATE TABLE `{prefix}quizzes_answers` (
+    `id` mediumint(7) unsigned NOT NULL auto_increment,
+    `member_id` int(11) unsigned NOT NULL,
+    `quiz_id` int(11) unsigned NOT NULL,
+    `question_id` int(11) unsigned NOT NULL,
+    `clicks_num` int(11) unsigned NOT NULL,
+    `correct_answer` tinyint(1) unsigned NOT NULL,
+    `date_added` datetime,
+    `date_modified` datetime,
+    `status` enum('inactive', 'active') NOT NULL default 'active',
+    PRIMARY KEY  (`id`)
+) {mysql_version};
+            ]]>
+        </sql>
+    </install>
+
+    <uninstall>
+        <sql>
+            <![CDATA[
+DROP TABLE IF EXISTS `{prefix}quizzes`, `{prefix}quizzes_questions`, `{prefix}quizzes_answers`;
+            ]]>
+        </sql>
+    </uninstall>
+</module>
