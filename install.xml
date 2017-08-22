@@ -5,8 +5,8 @@
     <author>Artem Malichev</author>
     <contributor>Intelliants LLC</contributor>
     <version>1.0.0</version>
-    <date>2017-08-03</date>
-    <compatibility>4.1</compatibility>
+    <date>2017-08-22</date>
+    <compatibility>4.1.5</compatibility>
 
     <items>
         <item payable="0">quizzes</item>
@@ -15,18 +15,18 @@
     </items>
 
     <actions>
-        <action name="answers" url="quiz/answers/" icon="pencil" pages="quizzes:add,quizzes:edit,quizzes:read,questions:add,questions:edit,questions:read,answers:add,answers:edit"><![CDATA[]]></action>
-        <action name="questions" url="quiz/questions/" icon="help" pages="quizzes:add,quizzes:edit,quizzes:read,questions:add,questions:edit,answers:read,answers:add,answers:edit"><![CDATA[]]></action>
-        <action name="quizzes" url="quiz/" icon="list" pages="quizzes:add,quizzes:edit,questions:add,questions:edit,questions:read,answers:read,answers:add,answers:edit"><![CDATA[]]></action>
+        <action name="answers" url="quiz/answers/" icon="pencil" pages="quiz:add,quiz:edit,quiz:read,questions:add,questions:edit,questions:read,answers:add,answers:edit"><![CDATA[]]></action>
+        <action name="questions" url="quiz/questions/" icon="help" pages="quiz:add,quiz:edit,quiz:read,questions:add,questions:edit,answers:read,answers:add,answers:edit"><![CDATA[]]></action>
+        <action name="quizzes" url="quiz/" icon="list" pages="quiz:add,quiz:edit,questions:add,questions:edit,questions:read,answers:read,answers:add,answers:edit"><![CDATA[]]></action>
         <action name="add_answers" url="quiz/answers/add/" icon="plus" pages="answers:read,answers:edit"><![CDATA[]]></action>
         <action name="add_questions" url="quiz/questions/add/" icon="plus" pages="questions:read,questions:edit"><![CDATA[]]></action>
-        <action name="add_quizzes" url="quiz/add/" icon="plus" pages="quizzes:read,quizzes:edit"><![CDATA[]]></action>
+        <action name="add_quizzes" url="quiz/add/" icon="plus" pages="quiz:read,quiz:edit"><![CDATA[]]></action>
     </actions>
 
     <adminpages>
-        <page name="quizzes" url="quiz/" menus="menu">Quizzes</page>
-        <page name="questions" url="quiz/questions/" filename="questions">Questions</page>
-        <page name="answers" url="quiz/answers/" filename="answers">Answers</page>
+        <page group="content" name="quiz" url="quiz/" menus="menu">Quizzes</page>
+        <page group="content" name="questions" url="quiz/questions/" filename="questions">Questions</page>
+        <page group="content" name="answers" url="quiz/answers/" filename="answers">Answers</page>
     </adminpages>
 
     <pages>
