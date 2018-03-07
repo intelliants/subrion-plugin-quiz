@@ -2,7 +2,7 @@
 /******************************************************************************
  *
  * Subrion - open source content management system
- * Copyright (C) 2017 Intelliants, LLC <https://intelliants.com>
+ * Copyright (C) 2018 Intelliants, LLC <https://intelliants.com>
  *
  * This file is part of Subrion.
  *
@@ -30,7 +30,7 @@ class iaQuizzes extends abstractModuleFront
     protected $_questionsTable = 'quizzes_questions';
     protected $_answersTable = 'quizzes_answers';
 
-    protected $_itemName = 'quizzes';
+    protected $_itemName = 'quiz';
 
     protected $_iaQuestions;
 
@@ -43,7 +43,7 @@ class iaQuizzes extends abstractModuleFront
     {
         parent::init();
 
-        $this->_iaQuestions = $this->iaCore->factoryModule('questions', 'quiz', iaCore::FRONT);
+        $this->_iaQuestions = $this->iaCore->factoryModule('questions', IA_CURRENT_MODULE, iaCore::FRONT);
     }
 
     public function getQuestionsTable()

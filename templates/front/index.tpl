@@ -6,7 +6,7 @@
 
         <div class="q-item-view__questions js-load-questions">
             {if !empty($entry.question)}
-                {include file='extra:quiz/question'}
+                {include file='module:quiz/question.tpl'}
             {/if}
         </div>
         <hr>
@@ -44,7 +44,7 @@
     {if $entries}
         <div class="ia-items">
             {foreach $entries as $entry}
-                {include file='extra:quiz/list-quizzes'}
+                {include file='module:quiz/list-quizzes.tpl'}
             {/foreach}
         </div>
 

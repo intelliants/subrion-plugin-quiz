@@ -23,7 +23,7 @@ $(function() {
                 answerIcon = 'exclamation',
                 answerStyle = 'text-danger',
                 answerId = $this.parent().data('answer-id'),
-                url = intelli.config.ia_url + 'quizzes/index.json';
+                url = intelli.config.url + 'quizzes/index.json';
 
             $.get(url, {action: 'update-clicks-num', id: answerId}, function(response) {
                 if (response.length) {
@@ -64,7 +64,7 @@ $(function() {
         e.preventDefault();
 
         var $form = $(this),
-            url = intelli.config.ia_url + 'quizzes/index.json',
+            url = intelli.config.url + 'quizzes/index.json',
             quizId = $form.data('quizId'),
             nextQuestionId = $form.data('nextQuestion');
 
@@ -80,7 +80,7 @@ $(function() {
                 }
             });
         } else {
-            location.href = intelli.config.ia_url + 'quizzes/finish/' + quizId + '/'
+            location.href = intelli.config.url + 'quizzes/finish/' + quizId + '/'
         }
     });
 });
