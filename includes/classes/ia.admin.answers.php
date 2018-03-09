@@ -2,7 +2,7 @@
 /******************************************************************************
  *
  * Subrion - open source content management system
- * Copyright (C) 2017 Intelliants, LLC <https://intelliants.com>
+ * Copyright (C) 2018 Intelliants, LLC <https://intelliants.com>
  *
  * This file is part of Subrion.
  *
@@ -30,7 +30,7 @@ class iaAnswers extends abstractModuleAdmin
     protected $_quizzesTable = 'quizzes';
     protected $_questionsTable = 'quizzes_questions';
 
-    protected $_itemName = 'quizzes_answers';
+    protected $_itemName = 'quiz_answer';
 
 
     public function getQuizzesTable()

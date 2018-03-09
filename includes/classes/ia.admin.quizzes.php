@@ -2,7 +2,7 @@
 /******************************************************************************
  *
  * Subrion - open source content management system
- * Copyright (C) 2017 Intelliants, LLC <https://intelliants.com>
+ * Copyright (C) 2018 Intelliants, LLC <https://intelliants.com>
  *
  * This file is part of Subrion.
  *
@@ -30,9 +30,9 @@ class iaQuizzes extends abstractModuleAdmin
     protected $_questionsTable = 'quizzes_questions';
     protected $_answersTable = 'quizzes_answers';
 
-    protected $_itemName = 'quizzes';
+    protected $_itemName = 'quiz';
 
-    protected $_activityLog = ['item' => 'quizzes'];
+    protected $_activityLog = ['item' => 'quiz'];
 
     public $dashboardStatistics = ['_format' => 'small', 'icon' => 'folder', 'url' => 'quizzes/quizzes/'];
 
@@ -58,7 +58,7 @@ class iaQuizzes extends abstractModuleAdmin
         return iaDb::printf($this->_urlPatterns[$action], $params);
     }
 
-    public function getAll($where = null)
+    public function getAll($where = null, $fields = null, $start = null, $limit = null)
     {
         $where = $where ? $where . ' AND ' : '' . 'status = "active"';
         $rows = $this->iaDb->all(iaDb::ALL_COLUMNS_SELECTION, $where, 0, null, self::$_table);

@@ -2,7 +2,7 @@
 /******************************************************************************
  *
  * Subrion - open source content management system
- * Copyright (C) 2017 Intelliants, LLC <https://intelliants.com>
+ * Copyright (C) 2018 Intelliants, LLC <https://intelliants.com>
  *
  * This file is part of Subrion.
  *
@@ -24,7 +24,7 @@
  *
  ******************************************************************************/
 
-$iaQuizzes = $iaCore->factoryModule('quizzes', 'quiz');
+$iaQuizzes = $iaCore->factoryModule('quizzes', IA_CURRENT_MODULE);
 
 if (iaView::REQUEST_JSON == $iaView->getRequestType()) {
     if (isset($_GET['action']) && !empty($_GET['action'])) {
@@ -76,7 +76,7 @@ SQL;
 
                 $id = isset($_GET['id']) && !empty($_GET['id']) ? (int)$_GET['id'] : 0;
 
-                $iaQuestions = $iaCore->factoryModule('questions', 'quiz');
+                $iaQuestions = $iaCore->factoryModule('questions', IA_CURRENT_MODULE);
 
                 if ($question = $iaQuestions->getById($id)) {
                     $entry = $iaQuizzes->getById($question['quiz_id']);
@@ -88,7 +88,7 @@ SQL;
                     $entry['question']['next_id'] = $next_question_id ? $next_question_id : 0;
 
                     $iaSmarty->assign('entry', $entry);
-                    $output = $iaSmarty->fetch('extra:quiz/question');
+                    $output = $iaSmarty->fetch('module:quiz/question.tpl');
 
                     $iaView->assign([
                         'html' => $output

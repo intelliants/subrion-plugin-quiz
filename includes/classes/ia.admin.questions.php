@@ -2,7 +2,7 @@
 /******************************************************************************
  *
  * Subrion - open source content management system
- * Copyright (C) 2017 Intelliants, LLC <https://intelliants.com>
+ * Copyright (C) 2018 Intelliants, LLC <https://intelliants.com>
  *
  * This file is part of Subrion.
  *
@@ -30,7 +30,7 @@ class iaQuestions extends abstractModuleAdmin
     protected $_quizzesTable = 'quizzes';
     protected $_answersTable = 'quizzes_answers';
 
-    protected $_itemName = 'quizzes_questions';
+    protected $_itemName = 'quiz_question';
 
 
     public function getQuizzesTable()
@@ -43,7 +43,7 @@ class iaQuestions extends abstractModuleAdmin
         return $this->_answersTable;
     }
 
-    public function getAll($where = null)
+    public function getAll($where = null, $fields = null, $start = null, $limit = null)
     {
         $sql = <<<SQL
 SELECT qs.`id`, qs.`title_:lang` `title`, qs.`date_added`, qs.`status`, qz.`title_:lang` `quiz`, 1 `update`, 1 `delete`

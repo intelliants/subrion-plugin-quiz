@@ -2,7 +2,7 @@
 /******************************************************************************
  *
  * Subrion - open source content management system
- * Copyright (C) 2017 Intelliants, LLC <https://intelliants.com>
+ * Copyright (C) 2018 Intelliants, LLC <https://intelliants.com>
  *
  * This file is part of Subrion.
  *
@@ -28,7 +28,7 @@ class iaBackendController extends iaAbstractControllerModuleBackend
 {
     protected $_name = 'answers';
     protected $_path = 'answers';
-    protected $_itemName = 'quizzes_answers';
+    protected $_itemName = 'quiz_answer';
 
     protected $_helperName = 'answers';
 

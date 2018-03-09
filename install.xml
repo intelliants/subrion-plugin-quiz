@@ -4,14 +4,14 @@
     <summary>Allows to create quiz section on the website</summary>
     <author>Artem Malichev</author>
     <contributor>Intelliants LLC</contributor>
-    <version>1.0.0</version>
-    <date>2017-08-22</date>
-    <compatibility>4.1.5</compatibility>
+    <version>2.0.0</version>
+    <date>2018-03-07</date>
+    <compatibility>4.2.0</compatibility>
 
     <items>
-        <item payable="0">quizzes</item>
-        <item payable="0">quizzes_questions</item>
-        <item payable="0">quizzes_answers</item>
+        <item payable="0" table_name="quizzes">quiz</item>
+        <item payable="0" table_name="quizzes_questions">quiz_question</item>
+        <item payable="0" table_name="quizzes_answers">quiz_answer</item>
     </items>
 
     <actions>
@@ -34,24 +34,24 @@
     </pages>
 
     <fields_groups>
-        <group item="quizzes" name="general" title="General"><![CDATA[]]></group>
-        <group item="quizzes_questions" name="general" title="General"><![CDATA[]]></group>
-        <group item="quizzes_answers" name="general" title="General"><![CDATA[]]></group>
+        <group item="quiz" name="general" title="General"><![CDATA[]]></group>
+        <group item="quiz_question" name="general" title="General"><![CDATA[]]></group>
+        <group item="quiz_answer" name="general" title="General"><![CDATA[]]></group>
     </fields_groups>
 
     <fields>
-        <field name="title" item="quizzes" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
-        <field name="summary" item="quizzes" type="textarea" group="general" editor="0" required="0" multilingual="1" adminonly="1">Summary</field>
-        <field name="body" item="quizzes" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
-        <field name="pictures" item="quizzes" type="pictures" group="general" length="5" thumb_width="400" thumb_height="300" width="1200" height="900" prefix="quizzes_" editable="0">Image</field>
-        <field name="quiz_completion_text" item="quizzes" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Quiz Completion text</field>
+        <field name="title" item="quiz" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
+        <field name="summary" item="quiz" type="textarea" group="general" editor="0" required="0" multilingual="1" adminonly="1">Summary</field>
+        <field name="body" item="quiz" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
+        <field name="pictures" item="quiz" type="pictures" group="general" length="5" thumb_width="400" thumb_height="300" width="1200" height="900" prefix="quizzes_" editable="0">Image</field>
+        <field name="quiz_completion_text" item="quiz" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Quiz Completion text</field>
 
-        <field name="title" item="quizzes_questions" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
-        <field name="body" item="quizzes_questions" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
-        <field name="pictures" item="quizzes_questions" type="pictures" group="general" length="5" thumb_width="400" thumb_height="300" width="1200" height="900" prefix="quizzes_" editable="0">Image</field>
+        <field name="title" item="quiz_question" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
+        <field name="body" item="quiz_question" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
+        <field name="pictures" item="quiz_question" type="pictures" group="general" length="5" thumb_width="400" thumb_height="300" width="1200" height="900" prefix="quizzes_" editable="0">Image</field>
 
-        <field name="title" item="quizzes_answers" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
-        <field name="body" item="quizzes_answers" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
+        <field name="title" item="quiz_answer" type="text" group="general" length="70" required="1" multilingual="1" adminonly="1">Title</field>
+        <field name="body" item="quiz_answer" type="textarea" group="general" editor="1" multilingual="1" adminonly="1">Body</field>
     </fields>
 
     <phrases>
@@ -89,7 +89,7 @@
     <config group="quiz" name="quizzes_direction" type="select" values="Ascending,Descending" description="Direction">Descending</config>
 
     <hooks>
-        <hook name="adminDashboardStatistics" page_type="admin"><![CDATA[$items['quizzes'] = 'plugin';]]></hook>
+        <hook name="adminDashboardStatistics" page_type="admin"><![CDATA[$items['quiz'] = 'plugin';]]></hook>
     </hooks>
 
     <install>
