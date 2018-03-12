@@ -78,12 +78,21 @@ SQL;
 
                 $iaQuestions = $iaCore->factoryModule('questions', IA_CURRENT_MODULE);
 
-                if ($question = $iaQuestions->getById($id)) {
-                    $entry = $iaQuizzes->getById($question['quiz_id']);
-                    $entry['question'] = $question;
+//                var_dump($_SESSION['quiz_questions']);
 
-                    $next_question_id = $iaDb->one(iaDb::ID_COLUMN_SELECTION, "`id` > {$entry['question']['id']} AND `quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
+                if ($_SESSION['quiz_questions']) {
+
+
+                    $entry = $iaQuizzes->getById($_SESSION['quiz_questions'][0]['quiz_id']);
+                    $entry['question'] = $_SESSION['quiz_questions'][0];
+
+//                    $next_question_id = $iaDb->one(iaDb::ID_COLUMN_SELECTION, "`id` > {$entry['question']['id']} AND `quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
+                    $next_question_id = isset($_SESSION['quiz_questions'][1]) ? $_SESSION['quiz_questions'][1]['id'] : 0;
                     $next_question_id || $next_question_id = 0;
+                    unset($_SESSION['quiz_questions'][0]);
+
+//                    var_dump($entry);
+//                    var_dump($_SESSION);
 
                     $entry['question']['next_id'] = $next_question_id ? $next_question_id : 0;
 
@@ -103,6 +112,10 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
 
     if (isset($iaCore->requestPath[0]) && (int)$iaCore->requestPath[0]) {
         $id = $iaCore->requestPath[0];
+
+        if (isset($_SESSION['quiz_questions'])) {
+            unset($_SESSION['quiz_questions']);
+        }
 
         if (!$id) {
             return iaView::errorPage(iaView::ERROR_NOT_FOUND);
@@ -131,11 +144,19 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
 
         $iaView->set('og', $openGraph);
 
-        if ($question = $iaQuizzes->getQuestionsByQuizId($entry['id'], 1)) {
-            $entry['question'] = array_shift($question);
+        if ($_SESSION['quiz_questions'] = $iaQuizzes->getQuestionsByQuizId($entry['id'])) {
+//             $questions = $_SESSION['quiz_questions'];
+            shuffle($_SESSION['quiz_questions']);
 
-            $next_question_id = $iaDb->one(iaDb::ID_COLUMN_SELECTION, "`id` > {$entry['question']['id']} AND `quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
+
+            $entry['question'] = $_SESSION['quiz_questions'][0];
+
+
+
+//            $next_question_id = $iaDb->one(iaDb::ID_COLUMN_SELECTION, "`id` > {$entry['question']['id']} AND `quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
+            $next_question_id = isset($_SESSION['quiz_questions'][1]) ? $_SESSION['quiz_questions'][1]['id'] : 0;
             $next_question_id || $next_question_id = 0;
+            unset($_SESSION['quiz_questions'][0]);
 
             $entry['question']['next_id'] = $next_question_id ? $next_question_id : 0;
         }
@@ -162,7 +183,7 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
         $iaView->set('og', $openGraph);
         $iaView->title($entry['title']);
 
-        $total = $iaDb->one('COUNT(*)', "`quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
+        $total = $iaDb->one('COUNT(*)', "`quiz_id` = {$entry['id']} AND `status` = 'active'", $iaQuizzes->getQuestionsTable());
         $total || $total = 0;
 
         $iaUsers = $this->factory('users');
