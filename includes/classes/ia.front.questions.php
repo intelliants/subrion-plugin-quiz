@@ -47,7 +47,7 @@ class iaQuestions extends abstractModuleFront
         $where.= 'qs.`status` = "active"';
 
         $sql = <<<SQL
-SELECT qs.`id`, qs.`title_:lang`, qs.`body_:lang`, qs.`pictures`
+SELECT qs.`id`, qs.`title_:lang`, qs.`body_:lang`, qs.`pictures`, qs.`quiz_id`
 FROM `:prefix:table_questions` qs
 WHERE :where :order :limit
 SQL;

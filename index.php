@@ -78,21 +78,15 @@ SQL;
 
                 $iaQuestions = $iaCore->factoryModule('questions', IA_CURRENT_MODULE);
 
-//                var_dump($_SESSION['quiz_questions']);
-
                 if ($_SESSION['quiz_questions']) {
-
-
                     $entry = $iaQuizzes->getById($_SESSION['quiz_questions'][0]['quiz_id']);
                     $entry['question'] = $_SESSION['quiz_questions'][0];
 
-//                    $next_question_id = $iaDb->one(iaDb::ID_COLUMN_SELECTION, "`id` > {$entry['question']['id']} AND `quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
                     $next_question_id = isset($_SESSION['quiz_questions'][1]) ? $_SESSION['quiz_questions'][1]['id'] : 0;
-                    $next_question_id || $next_question_id = 0;
-                    unset($_SESSION['quiz_questions'][0]);
 
-//                    var_dump($entry);
-//                    var_dump($_SESSION);
+                    unset($_SESSION['quiz_questions'][0]);
+                    sort($_SESSION['quiz_questions']);
+                    shuffle($_SESSION['quiz_questions']);
 
                     $entry['question']['next_id'] = $next_question_id ? $next_question_id : 0;
 
@@ -145,18 +139,13 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
         $iaView->set('og', $openGraph);
 
         if ($_SESSION['quiz_questions'] = $iaQuizzes->getQuestionsByQuizId($entry['id'])) {
-//             $questions = $_SESSION['quiz_questions'];
             shuffle($_SESSION['quiz_questions']);
-
-
             $entry['question'] = $_SESSION['quiz_questions'][0];
 
-
-
-//            $next_question_id = $iaDb->one(iaDb::ID_COLUMN_SELECTION, "`id` > {$entry['question']['id']} AND `quiz_id` = {$entry['id']}", $iaQuizzes->getQuestionsTable());
             $next_question_id = isset($_SESSION['quiz_questions'][1]) ? $_SESSION['quiz_questions'][1]['id'] : 0;
-            $next_question_id || $next_question_id = 0;
             unset($_SESSION['quiz_questions'][0]);
+            sort($_SESSION['quiz_questions']);
+            shuffle($_SESSION['quiz_questions']);
 
             $entry['question']['next_id'] = $next_question_id ? $next_question_id : 0;
         }

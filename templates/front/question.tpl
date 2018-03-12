@@ -38,7 +38,7 @@
             </ul>
             <div class="form-group text-center q-item-view__btn js-answer-btn" style="display: none;">
                 <button type="submit" class="btn btn-primary">
-                    {if $entry.questions_page < $entry.questions_num}
+                    {if $entry.question.next_id > 0}
                         {lang key='next_question'}
                     {else}
                         {lang key='submit_and_finish'}
